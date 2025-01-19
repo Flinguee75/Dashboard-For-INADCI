@@ -49,7 +49,7 @@ def show_users():
     return render_template('Admin/show_users.html', users=users)
 
 # Route : Supprimer un utilisateur
-@admin_bp.route('/delete_user/<int:user_id>', methods=['DELETE'])
+@admin_bp.route('/delete_user/<int:user_id>', methods=['POST'])
 def delete_user(user_id):
     user = User.query.get(user_id)
     if not user:
@@ -58,5 +58,5 @@ def delete_user(user_id):
     db.session.delete(user)
     db.session.commit()
 
-    return jsonify({'message': f'Utilisateur {user.email} supprimé avec succès'})
+    return redirect(url_for('admin.show_users'))
 
