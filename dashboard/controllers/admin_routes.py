@@ -25,7 +25,6 @@ def add_user():
     role = request.form.get('role')
     print(f"Email : {email}, Password : {password}, Role : {role}")
     
-
     # Vérifier les données
     if not email or not password or not role:
         return jsonify({'message': 'Les champs email, password et role sont obligatoires'}), 400
