@@ -34,7 +34,7 @@ def add_user():
 
     # Ajouter un nouvel utilisateur
     hashed_password = generate_password_hash(password)
-    new_user = User(email=email, password=hashed_password, role=role)
+    new_user = User(username=username,email=email, password=hashed_password, role=role)
     db.session.add(new_user)
     db.session.commit()
 
