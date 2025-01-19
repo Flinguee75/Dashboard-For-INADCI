@@ -42,6 +42,11 @@ def add_user():
     print(f"Utilisateur {email} ajouté avec succès")
     return redirect(url_for('admin.dashboard'))
 
+# Route : Afficher tous les utilisateurs
+@admin_bp.route('/show_users', methods=['GET'])
+def show_users():
+    users = User.query.all()
+    return render_template('Admin/show_users.html', users=users)
 
 # Route : Supprimer un utilisateur
 @admin_bp.route('/delete_user/<int:user_id>', methods=['DELETE'])
@@ -55,10 +60,3 @@ def delete_user(user_id):
 
     return jsonify({'message': f'Utilisateur {user.email} supprimé avec succès'})
 
-
-# Route : Lister les utilisateurs
-@admin_bp.route('/list_users', methods=['GET'])
-def list_users():
-    users = User.query.all()
-    users_list = [{'id': user.id, 'email': user.email, 'role': user.role} for user in users]
-    return jsonify({'users':users_list})
