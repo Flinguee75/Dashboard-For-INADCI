@@ -23,6 +23,8 @@ def add_user():
     email = request.form.get('email')  # Remplacez request.json par request.form
     password = request.form.get('password')
     role = request.form.get('role')
+    print(f"Email : {email}, Password : {password}, Role : {role}")
+    
 
     # Vérifier les données
     if not email or not password or not role:
