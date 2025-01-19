@@ -19,6 +19,7 @@ def add_user_form():
 @admin_bp.route('/add_user', methods=['POST'])
 def add_user():
     print("Ajout d'un utilisateur")
+    username = request.form.get('username')
     email = request.form.get('email')  # Remplacez request.json par request.form
     password = request.form.get('password')
     role = request.form.get('role')
