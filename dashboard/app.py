@@ -9,6 +9,7 @@ from models import db
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
+    app.secret_key = 'a3f8b6e9c9d48f3ec1a7f2d3e6b1a2c4d5e6f7c8b9d0a1e2f3a4b5c6d7e8f9a0'
 
     # Lier SQLAlchemy à l'application Flask
     db.init_app(app)
