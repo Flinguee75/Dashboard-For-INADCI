@@ -9,7 +9,8 @@ admin_bp = Blueprint('admin', __name__)
 # Route : Tableau de bord de l'administrateur
 @admin_bp.route('/dashboard', methods=['GET'])
 def dashboard():
-      return render_template('tableau_de_bord/index.html')
+    current_user = User.query.filter_by(email=session['email']).first()
+    return render_template('tableau_de_bord/index.html', current_user=current_user)
 
 # Route : Ajouter un utilisateur
 @admin_bp.route('/add_user', methods=['GET'])

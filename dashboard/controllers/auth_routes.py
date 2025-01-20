@@ -33,12 +33,12 @@ def login():
    
 
     # Stocke les informations de session
-    # session['user_id'] = user.id
-    # session['role'] = user.role
+    session['email'] = user.email
+    session['role'] = user.role
 
     # Redirection basée sur le rôle
     if user.role == 'admin':
         return redirect(url_for('admin.dashboard'))  # Redirige vers le tableau de bord admin
     elif user.role == 'agent':
         print("Agent")
-        return redirect(url_for('admin.dashboard'))  # Redirige vers la page de connexion par défaut
+        return redirect(url_for('agent.dashboard'))  # Redirige vers la page de connexion par défaut

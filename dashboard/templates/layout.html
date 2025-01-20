@@ -44,7 +44,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="dashboard">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -57,6 +57,7 @@
                 Outils Admin
             </div>
 
+            {% if current_user.role != 'agent' %}
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
@@ -71,9 +72,8 @@
                     </div>
                 </div>
             </li>
-
-           
-
+            {% endif %}
+            
             <!-- Divider -->
             <hr class="sidebar-divider">
 

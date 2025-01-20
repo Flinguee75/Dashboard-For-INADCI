@@ -10,7 +10,7 @@ def role_required(required_role):
         @wraps(f)
         def decorated_function(*args, **kwargs):
             user_role = session.get('role')
-            if user_role != required_role:
+            if user_role != 'admin' and user_role != required_role:
                 return redirect(url_for('home'))  # Redirige vers l'accueil
             return f(*args, **kwargs)
         return decorated_function
