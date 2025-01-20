@@ -41,7 +41,7 @@ def login():
         return redirect(url_for('admin.dashboard'))  # Redirige vers le tableau de bord admin
     elif user.role == 'agent':
         print("Agent")
-        return redirect(url_for('agent.dashboard'))  # Redirige vers la page de connexion par défaut
+        return redirect(url_for('admin.dashboard'))  # Redirige vers la page de connexion par défaut
 
 
 # Route pour se déconnecter
