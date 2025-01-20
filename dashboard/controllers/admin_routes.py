@@ -12,10 +12,12 @@ def dashboard():
     current_user = User.query.filter_by(email=session['email']).first()
     return render_template('tableau_de_bord/index.html', current_user=current_user)
 
+
 # Route : Ajouter un utilisateur
 @admin_bp.route('/add_user', methods=['GET'])
 def add_user_form():
     return render_template('utilisateurs/register.html')
+
 
 @admin_bp.route('/add_user', methods=['POST'])
 def add_user():
@@ -39,7 +41,6 @@ def add_user():
     new_user = User(username=username,email=email, password=hashed_password, role=role)
     db.session.add(new_user)
     db.session.commit()
-
     print(f"Utilisateur {email} ajouté avec succès")
     return redirect(url_for('admin.dashboard'))
 
