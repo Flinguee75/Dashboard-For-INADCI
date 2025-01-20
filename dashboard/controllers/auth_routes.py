@@ -39,7 +39,6 @@ def login():
     # Redirection basée sur le rôle
     if user.role == 'admin':
         return redirect(url_for('admin.dashboard'))  # Redirige vers le tableau de bord admin
-    elif user.role == 'user':
-        return redirect(url_for('user.dashboard'))  # Redirige vers le tableau de bord utilisateur
     elif user.role == 'agent':
-        return redirect(url_for('auth.login_page'))  # Redirige vers la page de connexion par défaut
+        print("Agent")
+        return redirect(url_for('admin.dashboard'))  # Redirige vers la page de connexion par défaut
