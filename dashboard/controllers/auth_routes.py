@@ -45,7 +45,7 @@ def login():
 
 
 # Route pour se déconnecter
-@auth_bp.route('/logout')
+@auth_bp.route('/logout', methods=['POST'])
 def logout():
     session.clear()  # Efface toutes les informations de session
     return redirect(url_for('auth.login_page'))  # Redirige vers la page de connexion
