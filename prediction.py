@@ -71,21 +71,10 @@ def preprocess_input(form_data, preprocessor, feature_names, selected_features):
 
 
 # *** Fonction principale ***
-def main():
+def predict(user_data,prix_par_tonne):
     # Charger les fichiers nécessaires
     final_model, preprocessor, feature_names, selected_features = load_files()
 
-    print("Bienvenue dans l'outil de prédiction du rendement moyen !\n")
-
-    # Collecte des données utilisateur
-    user_data = {
-        'nom_region': input("Entrez la région : "),
-        'nom_espece': input("Entrez l'espèce à planter : "),
-        'superficie': float(input("Entrez la superficie (en hectares) : ")),
-        'pluviometrie': float(input("Entrez la pluviométrie (en mm) : ")),
-        'temperature_moyenne': float(input("Entrez la température moyenne (en °C) : ")),
-        'mois_plantation': int(input("Entrez le mois de plantation (1-12) : ")),
-    }
 
     # Calcul des colonnes supplémentaires
     user_data['log_pluviometrie'] = math.log(user_data['pluviometrie'])
@@ -104,15 +93,7 @@ def main():
     rendement_tonnes = final_model.predict(input_transformed)[0]
 
     # Calculer la valeur en Franc CFA
-    prix_par_tonne = 500000  # Exemple : 500 000 FCFA par tonne
     rendement_fcfa = rendement_tonnes * prix_par_tonne
 
-    # Afficher le résultat
-    print("\nRésultat de la prédiction :")
-    print(f"Rendement estimé : {rendement_tonnes:.2f} tonnes/hectare")
-    print(f"Valeur estimée en Franc CFA : {rendement_fcfa:,.2f} FCFA\n")
+    return rendement_fcfa
 
-
-# *** Exécuter le programme ***
-if __name__ == "__main__":
-    main()
