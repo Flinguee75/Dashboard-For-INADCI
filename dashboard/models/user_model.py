@@ -8,3 +8,4 @@ class User(db.Model):
   password = db.Column(db.String(200), nullable=False)
   role = db.Column(db.String(50), nullable=False)
   date_created = db.Column(db.DateTime, default=db.func.current_timestamp(), nullable=True)
+ 
