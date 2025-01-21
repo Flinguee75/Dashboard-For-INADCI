@@ -227,35 +227,100 @@
             </div>
             
             <div class="card-body">
-            <form>
+            <form id="predictionForm">
                 <div class="form-group">
                     <label for="region">Region</label>
-                    <input type="text" class="form-control" id="region" placeholder="Entre region">
+                    <select class="form-control" id="region">
+                        {% for region in regions %}
+                            <option value="{{ region }}">{{ region }}</option>
+                        {% endfor %}
+                    </select>
+            
                 </div>
                 <div class="form-group">
                     <label for="espece">Espece</label>
-                    <input type="text" class="form-control" id="espece" placeholder="Entre espece">
+                    <select class="form-control" id="espece">
+                        {% for espece in especes %}
+                            <option value="{{ espece }}">{{ espece }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
+                
                 <div class="form-group">
                     <label for="superficie">Superficie</label>
-                    <input type="text" class="form-control" id="superficie" placeholder="Entre superficie">
+                    <input type="text" class="form-control" id="superficie" placeholder=" ">
                 </div>
                 <div class="form-group">
-                    <label for="temperatureMoyenne">Mois de Plantation</label>
-                    <input type="text" class="form-control" id="temperatureMoyenne" placeholder="Entre temperature moyenne">
+                    <label for="moisPlantation">Mois de Plantation</label>
+                    <select class="form-control" id="moisPlantation">
+                        <option value="janvier">Janvier</option>
+                        <option value="fevrier">Février</option>
+                        <option value="mars">Mars</option>
+                        <option value="avril">Avril</option>
+                        <option value="mai">Mai</option>
+                        <option value="juin">Juin</option>
+                        <option value="juillet">Juillet</option>
+                        <option value="aout">Août</option>
+                        <option value="septembre">Septembre</option>
+                        <option value="octobre">Octobre</option>
+                        <option value="novembre">Novembre</option>
+                        <option value="decembre">Décembre</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="temperatureMoyenne">Temperature Moyenne</label>
-                    <input type="text" class="form-control" id="temperatureMoyenne" placeholder="Entre temperature moyenne">
+                    <input type="text" class="form-control" id="temperatureMoyenne" placeholder=" ">
                 </div>
                 <div class="form-group">
                     <label for="pluviometrie">Pluviometrie</label>
-                    <input type="text" class="form-control" id="pluviometrie" placeholder="Entre pluviometrie">
+                    <input type="text" class="form-control" id="pluviometrie" placeholder=" ">
                 </div>
-                <button type="submit" class="btn btn-primary">Prediction</button>
+                <div class="d-flex">
+                    <button type="submit" class="btn btn-primary">Prediction</button>
+                    <div class="ml-auto" style="text-align: center; margin-right: 50%;"><p><strong id="LabelResultat"></strong></p><p id="result"></p></div>                
+                </div>
             </form>
             </div>
         </div>
         </div>
     </div>
-    {% endblock %}
+</div>
+<script>
+
+document.getElementById('predictionForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    var labelResultat = document.getElementById('LabelResultat');
+    labelResultat.innerHTML = 'Resultat';
+
+    var resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = '<em>Calcul du rendement...</em>';
+
+    var formData = new FormData(event.target);
+    var userData = {
+        'nom_region': formData.get('region'),
+        'nom_espece': formData.get('espece'),
+        'superficie': parseFloat(formData.get('superficie') || 0),
+        'pluviometrie': parseFloat(formData.get('pluviometrie') || 0),
+        'temperature_moyenne': parseFloat(formData.get('temperatureMoyenne') || 0),
+        'mois_plantation': parseInt(formData.get('moisPlantation') || 0)
+    };
+    fetch('/predict', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        resultDiv.innerHTML = `<strong>Rendement estimé : ${data.rendement_tonnes(2)} tonnes/hectare</strong><br>
+                               <strong>Valeur estimée en Franc CFA : ${data.rendement_fcfa.toLocaleString()} FCFA</strong>`;
+    })
+    .catch(error => {
+        resultDiv.innerHTML = '<strong>Erreur lors du calcul du rendement.</strong>';
+        console.error('Error:', error);
+    });
+});
+</script>
+{% endblock %}

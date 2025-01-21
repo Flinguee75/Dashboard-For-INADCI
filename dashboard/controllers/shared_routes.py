@@ -1,9 +1,10 @@
 from flask import Blueprint, redirect, render_template, request, jsonify, session, url_for
-from models import TableDescription
+from models import Region, Espece, TableDescription
 from models import db
 from models import User
 from werkzeug.security import generate_password_hash
 from prediction import predict
+
 shared_bp = Blueprint('shared', __name__)
 
 # Route : Tableau de bord de l'administrateur
@@ -16,25 +17,23 @@ def dashboard():
 
 @shared_bp.route('/prediction', methods=['GET'])
 def prediction():
+    regions = [region.nom_region for region in Region.query.distinct(Region.nom_region).all()]
+    especes = [espece.nom_espece for espece in Espece.query.distinct(Espece.nom_espece).all()]
     current_user = User.query.filter_by(email=session['email']).first()
-    return render_template('agent/prediction.html', current_user=current_user)
-    # Route : Formulaire de prédiction (POST)
-@shared_bp.route('/prediction', methods=['POST'])
-def prediction_post():
-    current_user = User.query.filter_by(email=session['email']).first()
+    return render_template('agent/prediction.html', current_user=current_user, regions=regions, especes=especes)
+
+#Route : Formulaire de prédiction (POST)
+@shared_bp.route('/predict', methods=['POST'])
+def predict_route():
     
-    user_data = {
-        'nom_region': request.form.get('region'),
-        'nom_espece': request.form.get('espece'),
-        'superficie': float(request.form.get('superficie', 0)),
-        'pluviometrie': float(request.form.get('pluviometrie', 0)),
-        'temperature_moyenne': float(request.form.get('temperatureMoyenne', 0)),
-        'mois_plantation': int(request.form.get('mois_plantation', 0))
-    }
+    user_data = request.json
+    rendement_fcfa = predict(user_data, 500000)
+    espece_nom = user_data.get('espece')
+    espece = Espece.query.filter_by(nom_espece=espece_nom).first()
+    prix_par_tonne = espece.prix_par_tonne 
+    rendement_tonnes = rendement_fcfa / prix_par_tonne  
     
-    prix = predict(user_data, 100000)
-    
-    return render_template('agent/prediction.html', current_user=current_user, prix=prix)
+    return jsonify({'rendement_tonnes': rendement_tonnes, 'rendement_fcfa': rendement_fcfa})
 
 # Route : Afficher les tables
 @shared_bp.route('/tables', methods=['GET'])
