@@ -17,3 +17,9 @@ def dashboard():
 def prediction():
     current_user = User.query.filter_by(email=session['email']).first()
     return render_template('agent/prediction.html', current_user=current_user)
+
+# Route : Afficher les tables
+@shared_bp.route('/tables', methods=['GET'])
+def tables():
+    current_user = User.query.filter_by(email=session['email']).first()
+    return render_template('agent/table.html', current_user=current_user)
