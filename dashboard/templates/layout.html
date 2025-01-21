@@ -69,8 +69,8 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="add_user">Ajouter Utilisateur</a>
-                        <a class="collapse-item" href="show_users">Liste Utilisateur</a>
+                        <a class="collapse-item" href="{{ url_for('admin.add_user_form') }}">Ajouter Utilisateur</a>
+                        <a class="collapse-item" href="{{ url_for('admin.show_users') }}">Liste Utilisateur</a>
                     </div>
                 </div>
             </li>
@@ -86,7 +86,7 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="prediction-rendement.html">
+                <a class="nav-link" href="prediction">
                     <i class="fas fa-fw fa-robot"></i>
                     <span>Predications de rendement</span></a>
             </li>

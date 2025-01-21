@@ -63,3 +63,7 @@ def delete_user(user_id):
 
     return redirect(url_for('admin.show_users'))
 
+@admin_bp.route('/prediction')
+def prediction():
+    current_user = User.query.filter_by(email=session['email']).first()
+    return render_template('Agent/prediction.html', current_user=current_user)

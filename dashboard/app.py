@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from config import Config
 from controllers.auth_routes import auth_bp
 from controllers.admin_routes import admin_bp
+from controllers.shared_routes import shared_bp
 from models import db 
 
 
@@ -14,10 +15,10 @@ def create_app():
     # Lier SQLAlchemy à l'application Flask
     db.init_app(app)
     
-    # Enregistrer les blueprints
-    app.register_blueprint(auth_bp, url_prefix='/')
-    app.register_blueprint(admin_bp, url_prefix='/admin')  # Préfixe pour les routes Admin
-
+ # Enregistrer les Blueprints
+    app.register_blueprint(admin_bp, url_prefix='/admin')     # Routes spécifiques aux admins
+    app.register_blueprint(shared_bp, url_prefix='/')   # Routes partagées (admin/agent)
+    app.register_blueprint(auth_bp, url_prefix='/')       # Authentifications
     return app
 
 app=create_app()
