@@ -25,15 +25,15 @@ def prediction():
 #Route : Formulaire de prédiction (POST)
 @shared_bp.route('/predict', methods=['POST'])
 def predict_route():
-    
     user_data = request.json
     rendement_fcfa = predict(user_data, 500000)
     espece_nom = user_data.get('espece')
+    
     espece = Espece.query.filter_by(nom_espece=espece_nom).first()
-    prix_par_tonne = espece.prix_par_tonne 
-    rendement_tonnes = rendement_fcfa / prix_par_tonne  
+    rendement_tonnes = rendement_fcfa / espece.prix_tonne  
     
     return jsonify({'rendement_tonnes': rendement_tonnes, 'rendement_fcfa': rendement_fcfa})
+
 
 # Route : Afficher les tables
 @shared_bp.route('/tables', methods=['GET'])
