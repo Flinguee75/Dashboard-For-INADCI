@@ -30,8 +30,6 @@ def login():
         print("E-mail ou mot de passe incorrect")
         return render_template('utilisateurs/login.html', message="E-mail ou mot de passe incorrect")
     
-   
-
     # Stocke les informations de session
     session['email'] = user.email
     session['role'] = user.role

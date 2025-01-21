@@ -48,7 +48,8 @@ def add_user():
 @admin_bp.route('/show_users', methods=['GET'])
 def show_users():
     users = User.query.all()
-    return render_template('Admin/show_users.html', users=users)
+    current_user = User.query.filter_by(email=session['email']).first()
+    return render_template('Admin/show_users.html', current_user=current_user ,users=users)
 
 # Route : Supprimer un utilisateur
 @admin_bp.route('/delete_user/<int:user_id>', methods=['POST'])
