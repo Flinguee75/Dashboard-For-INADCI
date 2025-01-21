@@ -9,3 +9,4 @@ from .region_model import Region
 from .meteorologie_model import Meteorologie
 from .plantation_model import Plantation
 from .statistique_model import Statistique
+from .table_description_model import TableDescription

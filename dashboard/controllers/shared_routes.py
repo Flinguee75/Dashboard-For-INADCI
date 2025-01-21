@@ -23,6 +23,5 @@ def prediction():
 @shared_bp.route('/tables', methods=['GET'])
 def tables():
     current_user = User.query.filter_by(email=session['email']).first()
-    tables = db.engine.table_names()
     tables_description = TableDescription.query.all()
-    return render_template('agent/table.html', current_user=current_user, tables=tables)
+    return render_template('agent/table.html', current_user=current_user, tables=tables_description)

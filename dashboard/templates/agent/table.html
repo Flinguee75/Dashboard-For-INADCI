@@ -216,7 +216,7 @@
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">Liste des Utilisateurs</h1>
+                <h1 class="h3 mb-0 text-gray-800">Description des tables</h1>
             </div>
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -230,14 +230,15 @@
                                     <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
                                         <thead>
                                             <tr role="row">
-                                                <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Table Name: activate to sort column descending" style="width: 57.2px;">Table Name</th>
+                                                <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Table Name: activate to sort column descending" style="width: 57.2px;">Nom des tables</th>
                                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending" style="width: 61.2px;">Description</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {% for table in tables %}
                                             <tr class="{% if loop.index0 % 2 == 0 %}even{% else %}odd{% endif %}">
-                                                <td class="sorting_1">{{ table }}</td>
+                                                <td class="sorting_1">{{ table.table_name }}</td>
+                                                <td>{{ table.description }}</td>
                                             </tr>
                                             {% endfor %}
                                         </tbody>
