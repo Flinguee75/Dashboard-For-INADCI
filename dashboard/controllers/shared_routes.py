@@ -23,14 +23,15 @@ def prediction():
     return render_template('agent/prediction.html', current_user=current_user, regions=regions, especes=especes)
 
 #Route : Formulaire de prédiction (POST)
+
 @shared_bp.route('/predict', methods=['POST'])
+
 def predict_route():
-    user_data = request.json
-    rendement_fcfa = predict(user_data, 500000)
-    espece_nom = user_data.get('espece')
-    
+    user_data = request.get_json()
+    rendement_tonnes = predict(user_data)
+    espece_nom = user_data.get('nom_espece')
     espece = Espece.query.filter_by(nom_espece=espece_nom).first()
-    rendement_tonnes = rendement_fcfa / espece.prix_tonne  
+    rendement_fcfa = rendement_tonnes * espece.prix_tonnes  
     
     return jsonify({'rendement_tonnes': rendement_tonnes, 'rendement_fcfa': rendement_fcfa})
 

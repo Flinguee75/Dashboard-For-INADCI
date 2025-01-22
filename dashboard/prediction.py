@@ -3,18 +3,26 @@ import pandas as pd
 import joblib
 import math
 import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 # *** Chargement des fichiers nécessaires ***
 def load_files():
     # Construire les chemins absolus pour les fichiers
-    current_dir = os.path.dirname(__file__)
     paths = {
-        "model": os.path.join(current_dir, "final_model.pkl"),
-        "preprocessor": os.path.join(current_dir, "preprocessor.pkl"),
-        "features": os.path.join(current_dir, "features_names.pkl"),
-        "selected_features": os.path.join(current_dir, "selected_features.pkl"),
+        "model": os.path.join(BASE_DIR, "ia", "final_model.pkl"),
+        
+        "preprocessor": os.path.join(BASE_DIR, "ia", "preprocessor.pkl"),
+        "features": os.path.join(BASE_DIR, "ia", "features_names.pkl"),
+        "selected_features": os.path.join(BASE_DIR, "ia", "selected_features.pkl"),
     }
+    
+     # Vérifier si les fichiers existent
+    for key, path in paths.items():
+        if os.path.isfile(path):
+            print(f"{key}: {path} exists.")
+        else:
+            print(f"{key}: {path} does NOT exist.")
 
     # Charger les fichiers
     try:
@@ -71,7 +79,7 @@ def preprocess_input(form_data, preprocessor, feature_names, selected_features):
 
 
 # *** Fonction principale ***
-def predict(user_data,prix_par_tonne):
+def predict(user_data):
     # Charger les fichiers nécessaires
     final_model, preprocessor, feature_names, selected_features = load_files()
 
@@ -92,8 +100,5 @@ def predict(user_data,prix_par_tonne):
     # Faire la prédiction
     rendement_tonnes = final_model.predict(input_transformed)[0]
 
-    # Calculer la valeur en Franc CFA
-    rendement_fcfa = rendement_tonnes * prix_par_tonne
-
-    return rendement_fcfa
+    return rendement_tonnes
 

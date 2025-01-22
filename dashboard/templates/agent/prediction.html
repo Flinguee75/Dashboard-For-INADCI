@@ -230,7 +230,7 @@
             <form id="predictionForm">
                 <div class="form-group">
                     <label for="region">Region</label>
-                    <select class="form-control" id="region">
+                    <select class="form-control" name="region">
                         {% for region in regions %}
                             <option value="{{ region }}">{{ region }}</option>
                         {% endfor %}
@@ -239,7 +239,7 @@
                 </div>
                 <div class="form-group">
                     <label for="espece">Espece</label>
-                    <select class="form-control" id="espece">
+                    <select class="form-control" name="espece">
                         {% for espece in especes %}
                             <option value="{{ espece }}">{{ espece }}</option>
                         {% endfor %}
@@ -248,7 +248,7 @@
                 
                 <div class="form-group">
                     <label for="superficie">Superficie</label>
-                    <input type="text" class="form-control" id="superficie" placeholder=" ">
+                    <input type="number" class="form-control" name="superficie" placeholder=" ">
                 </div>
                 <div class="form-group">
                     <label for="moisPlantation">Mois de Plantation</label>
@@ -269,11 +269,11 @@
                 </div>
                 <div class="form-group">
                     <label for="temperatureMoyenne">Temperature Moyenne</label>
-                    <input type="text" class="form-control" id="temperatureMoyenne" placeholder=" ">
+                    <input type="number" class="form-control" name="temperatureMoyenne" placeholder=" ">
                 </div>
                 <div class="form-group">
                     <label for="pluviometrie">Pluviometrie</label>
-                    <input type="text" class="form-control" id="pluviometrie" placeholder=" ">
+                    <input type="number" class="form-control" name="pluviometrie" placeholder=" ">
                 </div>
                 <div class="d-flex">
                     <button type="submit" class="btn btn-primary">Prediction</button>
@@ -286,25 +286,28 @@
     </div>
 </div>
 <script>
-
 document.getElementById('predictionForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
     var labelResultat = document.getElementById('LabelResultat');
-    labelResultat.innerHTML = 'Resultat';
+    labelResultat.innerHTML = 'Résultat';
 
     var resultDiv = document.getElementById('result');
     resultDiv.innerHTML = '<em>Calcul du rendement...</em>';
 
     var formData = new FormData(event.target);
     var userData = {
-        'nom_region': formData.get('region'),
-        'nom_espece': formData.get('espece'),
-        'superficie': parseFloat(formData.get('superficie') || 0),
-        'pluviometrie': parseFloat(formData.get('pluviometrie') || 0),
-        'temperature_moyenne': parseFloat(formData.get('temperatureMoyenne') || 0),
-        'mois_plantation': parseInt(formData.get('moisPlantation') || 0)
+        'nom_region': formData.get('region') || '', // Gestion des valeurs par défaut
+        'nom_espece': formData.get('espece') || '',
+        'superficie': parseFloat(formData.get('superficie')) || 0,
+        'pluviometrie': parseFloat(formData.get('pluviometrie')) || 0,
+        'temperature_moyenne': parseFloat(formData.get('temperatureMoyenne')) || 0,
+        'mois_plantation': parseInt(formData.get('moisPlantation')) || 0
     };
+
+    // Vérification des données avant l'envoi
+    console.log('Données utilisateur envoyées :', userData);
+
     fetch('/predict', {
         method: 'POST',
         headers: {
@@ -314,7 +317,7 @@ document.getElementById('predictionForm').addEventListener('submit', function(ev
     })
     .then(response => response.json())
     .then(data => {
-        resultDiv.innerHTML = `<strong>Rendement estimé : ${data.rendement_tonnes(2)} tonnes/hectare</strong><br>
+        resultDiv.innerHTML = `<strong>Rendement estimé : ${data.rendement_tonnes.toFixed(2)} tonnes/hectare</strong><br>
                                <strong>Valeur estimée en Franc CFA : ${data.rendement_fcfa.toLocaleString()} FCFA</strong>`;
     })
     .catch(error => {
@@ -322,5 +325,6 @@ document.getElementById('predictionForm').addEventListener('submit', function(ev
         console.error('Error:', error);
     });
 });
+
 </script>
 {% endblock %}
