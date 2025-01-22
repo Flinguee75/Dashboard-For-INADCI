@@ -42,3 +42,11 @@ def tables():
     current_user = User.query.filter_by(email=session['email']).first()
     tables_description = TableDescription.query.all()
     return render_template('agent/table.html', current_user=current_user, tables=tables_description)
+
+
+
+# Route : Afficher les graphiques
+@shared_bp.route('/charts', methods=['GET'])
+def charts():
+    current_user = User.query.filter_by(email=session['email']).first()
+    return render_template('agent/charts.html', current_user=current_user)

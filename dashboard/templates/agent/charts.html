@@ -16,7 +16,8 @@
             </button>
 
             <!-- Topbar Search -->
-            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <form
+                class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                 <div class="input-group">
                     <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
                         aria-label="Search" aria-describedby="basic-addon2">
@@ -43,7 +44,8 @@
                         <form class="form-inline mr-auto w-100 navbar-search">
                             <div class="input-group">
                                 <input type="text" class="form-control bg-light border-0 small"
-                                    placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                    placeholder="Search for..." aria-label="Search"
+                                    aria-describedby="basic-addon2">
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="button">
                                         <i class="fas fa-search fa-sm"></i>
@@ -121,8 +123,8 @@
                         </h6>
                         <a class="dropdown-item d-flex align-items-center" href="#">
                             <div class="dropdown-list-image mr-3">
-                                <img class="rounded-circle"
-                                    src="{{url_for('static', filename='assets/img/undraw_profile.svg') }}" alt="...">
+                                <img class="rounded-circle" src="img/undraw_profile_1.svg"
+                                    alt="...">
                                 <div class="status-indicator bg-success"></div>
                             </div>
                             <div class="font-weight-bold">
@@ -133,8 +135,8 @@
                         </a>
                         <a class="dropdown-item d-flex align-items-center" href="#">
                             <div class="dropdown-list-image mr-3">
-                                <img class="rounded-circle"
-                                    src="{{url_for('static', filename='assets/img/undraw_profile2.svg') }}" alt="...">
+                                <img class="rounded-circle" src="img/undraw_profile_2.svg"
+                                    alt="...">
                                 <div class="status-indicator"></div>
                             </div>
                             <div>
@@ -145,7 +147,8 @@
                         </a>
                         <a class="dropdown-item d-flex align-items-center" href="#">
                             <div class="dropdown-list-image mr-3">
-                                <img class="rounded-circle" src="img/undraw_profile_3.svg" alt="...">
+                                <img class="rounded-circle" src="img/undraw_profile_3.svg"
+                                    alt="...">
                                 <div class="status-indicator bg-warning"></div>
                             </div>
                             <div>
@@ -174,14 +177,11 @@
 
                 <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
-                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown"
-                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="text-center">
-                            <span class="d-block text-gray-600 small">{{ current_user.username }}</span>
-                            <span class="d-block text-gray-500 small"><strong>{{ current_user.role }}</strong></span>
-                        </div>
-                        <img class="img-profile rounded-circle ml-2"
-                            src="{{ url_for('static', filename='assets/img/undraw_profile.svg') }}">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                        <img class="img-profile rounded-circle"
+                            src="img/undraw_profile.svg">
                     </a>
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -215,116 +215,85 @@
         <div class="container-fluid">
 
             <!-- Page Heading -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800"> Prédiction de rendement</h1>
+            <h1 class="h3 mb-2 text-gray-800">Charts</h1>
+            <p class="mb-4">Chart.js is a third party plugin that is used to generate the charts in this theme.
+                The charts below have been customized - for further customization options, please visit the <a
+                    target="_blank" href="https://www.chartjs.org/docs/latest/">official Chart.js
+                    documentation</a>.</p>
+
+            <!-- Content Row -->
+            <div class="row">
+
+                <div class="col-xl-8 col-lg-7">
+
+                    <!-- Area Chart -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-area">
+                                <canvas id="myAreaChart"></canvas>
+                            </div>
+                            <hr>
+                            Styling for the area chart can be found in the
+                            <code>/js/demo/chart-area-demo.js</code> file.
+                        </div>
+                    </div>
+
+                   <!-- Bar Chart -->
+                   <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-bar">
+                            <canvas id="myBarChart"></canvas>
+                        </div>
+                        <hr>
+                        Styling for the bar chart can be found in the
+                        <code>/js/demo/chart-bar-demo.js</code> file.
+                    </div>
+                </div>
+
+                </div>
+
+                <!-- Donut Chart -->
+                <div class="col-xl-4 col-lg-5">
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Donut Chart</h6>
+                        </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <div class="chart-pie pt-4">
+                                <canvas id="myPieChart"></canvas>
+                            </div>
+                            <hr>
+                            Styling for the donut chart can be found in the
+                            <code>/js/demo/chart-pie-demo.js</code> file.
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <p>Notre modèle avancé d'IA utilise des algorithmes d'apprentissage automatique de pointe pour prédire le rendement de votre plantation avec une précision remarquable. En analysant un large éventail de points de données tels que la qualité du sol, les conditions météorologiques, le type de culture et les données historiques de rendement, notre IA peut fournir des informations exploitables pour optimiser vos pratiques agricoles.</p>
-            <p>Il vous suffit de saisir les données requises, et notre IA traitera les informations pour prévoir le rendement attendu. Cet outil puissant aide les agriculteurs à prendre des décisions éclairées, à réduire les déchets et à maximiser la productivité.</p>
-        <div class="card shadow mb-4"></div>
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Modèle de Prédiction IA</h6>
-            </div>
-            
-            <div class="card-body">
-            <form id="predictionForm">
-                <div class="form-group">
-                    <label for="region">Region</label>
-                    <select class="form-control" name="region">
-                        {% for region in regions %}
-                            <option value="{{ region }}">{{ region }}</option>
-                        {% endfor %}
-                    </select>
-            
-                </div>
-                <div class="form-group">
-                    <label for="espece">Espece</label>
-                    <select class="form-control" name="espece">
-                        {% for espece in especes %}
-                            <option value="{{ espece }}">{{ espece }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="superficie">Superficie</label>
-                    <input type="number" class="form-control" name="superficie" placeholder=" ">
-                </div>
-                <div class="form-group">
-                    <label for="moisPlantation">Mois de Plantation</label>
-                    <select class="form-control" id="moisPlantation">
-                        <option value="janvier">Janvier</option>
-                        <option value="fevrier">Février</option>
-                        <option value="mars">Mars</option>
-                        <option value="avril">Avril</option>
-                        <option value="mai">Mai</option>
-                        <option value="juin">Juin</option>
-                        <option value="juillet">Juillet</option>
-                        <option value="aout">Août</option>
-                        <option value="septembre">Septembre</option>
-                        <option value="octobre">Octobre</option>
-                        <option value="novembre">Novembre</option>
-                        <option value="decembre">Décembre</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="temperatureMoyenne">Temperature Moyenne</label>
-                    <input type="number" class="form-control" name="temperatureMoyenne" placeholder=" ">
-                </div>
-                <div class="form-group">
-                    <label for="pluviometrie">Pluviometrie</label>
-                    <input type="number" class="form-control" name="pluviometrie" placeholder=" ">
-                </div>
-                <div class="d-flex">
-                    <button type="submit" class="btn btn-primary">Prediction</button>
-                    <div class="ml-auto" style="text-align: center; margin-right: 50%;"><p><strong id="LabelResultat"></strong></p><p id="result"></p></div>                
-                </div>
-            </form>
-            </div>
         </div>
-        </div>
+        <!-- /.container-fluid -->
+
     </div>
+    <!-- End of Main Content -->
+
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright &copy; Your Website 2020</span>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
+
 </div>
-<script>
-document.getElementById('predictionForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    var labelResultat = document.getElementById('LabelResultat');
-    labelResultat.innerHTML = 'Résultat';
-
-    var resultDiv = document.getElementById('result');
-    resultDiv.innerHTML = '<em>Calcul du rendement...</em>';
-
-    var formData = new FormData(event.target);
-    var userData = {
-        'nom_region': formData.get('region') || '', // Gestion des valeurs par défaut
-        'nom_espece': formData.get('espece') || '',
-        'superficie': parseFloat(formData.get('superficie')) || 0,
-        'pluviometrie': parseFloat(formData.get('pluviometrie')) || 0,
-        'temperature_moyenne': parseFloat(formData.get('temperatureMoyenne')) || 0,
-        'mois_plantation': parseInt(formData.get('moisPlantation')) || 0
-    };
-
-    // Vérification des données avant l'envoi
-    console.log('Données utilisateur envoyées :', userData);
-
-    fetch('/predict', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        resultDiv.innerHTML = `<strong>Rendement estimé : ${data.rendement_tonnes.toFixed(2)} tonnes/hectare</strong><br>
-                               <strong>Valeur estimée en Franc CFA : ${data.rendement_fcfa.toLocaleString()} FCFA</strong>`;
-    })
-    .catch(error => {
-        resultDiv.innerHTML = '<strong>Erreur lors du calcul du rendement.</strong>';
-        console.error('Error:', error);
-    });
-});
-
-</script>
+<!-- End of Content Wrapper -->
 {% endblock %}

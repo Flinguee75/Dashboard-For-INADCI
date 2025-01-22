@@ -95,7 +95,7 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('shared.tables', _external=True) }}">
+                <a class="nav-link" href="{{ url_for('shared.charts', _external=True) }}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Charts</span></a>
             </li>
@@ -148,6 +148,8 @@
     </div>
 </div>
 
+<!-- End of Footer -->
+
 <!-- Bootstrap core JavaScript-->
 <script src="{{ url_for('static', filename='assets/vendor/jquery/jquery.min.js') }}"></script>
 <script src="{{ url_for('static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -164,6 +166,7 @@
 <!-- Page level custom scripts -->
 <script src="{{ url_for('static', filename='assets/js/demo/chart-area-demo.js') }}"></script>
 <script src="{{ url_for('static', filename='assets/js/demo/chart-pie-demo.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/demo/chart-bar-demo.js') }}"></script>
 
 </body>
 
