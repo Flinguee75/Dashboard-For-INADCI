@@ -2,6 +2,28 @@
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
+async function loadCSV(filePath) {
+  const response = await fetch(filePath);
+  const csvText = await response.text();
+  return parseCSV(csvText);
+}
+
+function parseCSV(csvText) {
+  const rows = csvText.split("\n");
+  const headers = rows[0].split(",");
+  const data = rows.slice(1).map(row => {
+      const values = row.split(",");
+      return headers.reduce((acc, header, index) => {
+          acc[header.trim()] = values[index].trim();
+          return acc;
+      }, {});
+  });
+  return data;
+}
+
+// Exemple d'utilisation
+loadCSV('/static/assets/dataset/dataset_cleaned.csv').then(data => console.log(data));
+
 function number_format(number, decimals, dec_point, thousands_sep) {
   // *     example: number_format(1234.56, 2, ',', ' ');
   // *     return: '1 234,56'
@@ -27,14 +49,27 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   return s.join(dec);
 }
 
+function parseCSV(csvText) {
+  const rows = csvText.split("\n").filter(row => row.trim() !== ""); // Supprime les lignes vides
+  const headers = rows[0].split(","); // Première ligne pour les en-têtes
+  return rows.slice(1).map(row => {
+    const values = row.split(",");
+    return headers.reduce((acc, header, index) => {
+      acc[header.trim()] = values[index].trim();
+      return acc;
+    }, {});
+  });
+}
+
+
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: [], // Initialement vide
     datasets: [{
-      label: "Earnings",
+      label: "Taux de rendement (%)",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223, 0.05)",
       borderColor: "rgba(78, 115, 223, 1)",
@@ -46,73 +81,53 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
+      data: [] // Données initiales vides
     }],
   },
   options: {
     maintainAspectRatio: false,
-    layout: {
-      padding: {
-        left: 10,
-        right: 25,
-        top: 25,
-        bottom: 0
-      }
-    },
     scales: {
       xAxes: [{
         time: {
           unit: 'date'
         },
-        gridLines: {
-          display: false,
-          drawBorder: false
-        },
         ticks: {
-          maxTicksLimit: 7
+          maxTicksLimit: 12
         }
       }],
       yAxes: [{
         ticks: {
-          maxTicksLimit: 5,
-          padding: 10,
-          // Include a dollar sign in the ticks
-          callback: function(value, index, values) {
-            return '$' + number_format(value);
+          callback: function(value) {
+            return value + 't/ha'; // Affiche le symbole de pourcentage
           }
-        },
-        gridLines: {
-          color: "rgb(234, 236, 244)",
-          zeroLineColor: "rgb(234, 236, 244)",
-          drawBorder: false,
-          borderDash: [2],
-          zeroLineBorderDash: [2]
         }
-      }],
+      }]
     },
     legend: {
       display: false
     },
     tooltips: {
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
-      titleMarginBottom: 10,
-      titleFontColor: '#6e707e',
-      titleFontSize: 14,
-      borderColor: '#dddfeb',
-      borderWidth: 1,
-      xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
-      intersect: false,
-      mode: 'index',
-      caretPadding: 10,
       callbacks: {
         label: function(tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+          return datasetLabel + ': ' + tooltipItem.yLabel + '%';
         }
       }
     }
   }
 });
+
+fetch('/static/assets/dataset/dataset_cleaned.csv')
+  .then(response => response.text())
+  .then(csvText => {
+    const data = parseCSV(csvText); // Implémentez une fonction de parsing CSV
+    const labels = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"]; // Mois de l'année
+    const filteredData = data.filter(row => row.nom_region === 'Abidjan'); // Filtre les données pour la région Abidjan
+    const values = filteredData.map(row => parseFloat(row.rendement_moyen)); // Récupère les taux de rendement
+
+    // Mettez à jour le graphique
+    myLineChart.data.labels = labels;
+    myLineChart.data.datasets[0].data = values;
+    myLineChart.update();
+  })
+  .catch(error => console.error('Erreur lors du chargement des données CSV :', error));

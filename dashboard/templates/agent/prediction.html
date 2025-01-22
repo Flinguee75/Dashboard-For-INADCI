@@ -318,7 +318,7 @@ document.getElementById('predictionForm').addEventListener('submit', function(ev
     .then(response => response.json())
     .then(data => {
         resultDiv.innerHTML = `<strong>Rendement estimé : ${data.rendement_tonnes.toFixed(2)} tonnes/hectare</strong><br>
-                               <strong>Valeur estimée en Franc CFA : ${data.rendement_fcfa.toLocaleString()} FCFA</strong>`;
+                               <strong>Valeur estimée en Franc CFA/ha : ${data.rendement_fcfa.toLocaleString()} FCFA</strong>`;
     })
     .catch(error => {
         resultDiv.innerHTML = '<strong>Erreur lors du calcul du rendement.</strong>';
