@@ -28,8 +28,8 @@ var myBarChart = new Chart(ctx, {
     labels: [], // Initialement vide
     datasets: [{
       label: "Pluviométrie (mm)",
-      backgroundColor: "rgba(78, 115, 223, 0.5)",
-      borderColor: "rgba(78, 115, 223, 1)",
+      backgroundColor: "rgba(28, 200, 138, 0.5)",
+      borderColor: "rgba(28, 200, 138, 0.5)",
       borderWidth: 1,
       data: [] // Données initiales vides
     }],

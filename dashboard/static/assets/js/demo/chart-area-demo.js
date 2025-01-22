@@ -71,14 +71,14 @@ var myLineChart = new Chart(ctx, {
     datasets: [{
       label: "Taux de rendement (%)",
       lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223, 0.05)",
-      borderColor: "rgba(78, 115, 223, 1)",
+      backgroundColor: "rgba(144, 238, 144, 0.05)", // Vert clair
+      borderColor: "rgba(144, 238, 144, 1)", // Vert clair
       pointRadius: 3,
-      pointBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointBorderColor: "rgba(78, 115, 223, 1)",
+      pointBackgroundColor: "rgba(144, 238, 144, 1)", // Vert clair
+      pointBorderColor: "rgba(144, 238, 144, 1)", // Vert clair
       pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+      pointHoverBackgroundColor: "rgba(144, 238, 144, 1)", // Vert clair
+      pointHoverBorderColor: "rgba(144, 238, 144, 1)", // Vert clair
       pointHitRadius: 10,
       pointBorderWidth: 2,
       data: [] // Données initiales vides
