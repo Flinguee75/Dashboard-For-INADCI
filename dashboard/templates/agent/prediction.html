@@ -219,9 +219,7 @@
                 <h1 class="h3 mb-0 text-gray-800"> Prédiction de rendement</h1>
             </div>
 
-            <p>Notre modèle avancé d'IA utilise des algorithmes d'apprentissage automatique de pointe pour prédire le rendement de votre plantation avec une précision remarquable. En analysant un large éventail de points de données tels que la qualité du sol, les conditions météorologiques, le type de culture et les données historiques de rendement, notre IA peut fournir des informations exploitables pour optimiser vos pratiques agricoles.</p>
-            <p>Il vous suffit de saisir les données requises, et notre IA traitera les informations pour prévoir le rendement attendu. Cet outil puissant aide les agriculteurs à prendre des décisions éclairées, à réduire les déchets et à maximiser la productivité.</p>
-        <div class="card shadow mb-4"></div>
+            <p>Notre modèle avancé d'IA est basé sur un algorithme d'apprentissage automatique robuste : le RandomForestRegressor. Ce modèle a été choisi pour sa capacité à gérer des relations non linéaires complexes entre les différentes variables, telles que la superficie de la plantation, la pluviométrie, la température moyenne, ainsi que le type de culture et la région géographique.</p> <p>En utilisant des données provenant d'analyses historiques et de multiples sources, nous avons pu entraîner notre modèle pour qu'il puisse prédire avec précision le rendement moyen attendu par hectare. Le RandomForestRegressor est particulièrement efficace pour capturer les interactions entre ces variables, ce qui en fait un choix idéal pour des problèmes complexes comme celui-ci.</p> <p>Grâce à ce modèle, il vous suffit de saisir les données pertinentes dans notre formulaire. L'IA analysera ces informations pour fournir une prédiction fiable du rendement attendu, exprimée en tonnes par hectare ainsi qu'en valeur estimée en Franc CFA. Cet outil est conçu pour aider les agriculteurs à prendre des décisions stratégiques, maximiser leur productivité et améliorer la gestion des ressources agricoles.</p><div class="card shadow mb-4"></div>
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Modèle de Prédiction IA</h6>
             </div>
@@ -289,8 +287,6 @@
 document.getElementById('predictionForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    var labelResultat = document.getElementById('LabelResultat');
-    labelResultat.innerHTML = 'Résultat';
 
     var resultDiv = document.getElementById('result');
     resultDiv.innerHTML = '<em>Calcul du rendement...</em>';
