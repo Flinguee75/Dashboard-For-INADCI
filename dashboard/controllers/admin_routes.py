@@ -42,6 +42,7 @@ def add_user():
     db.session.add(new_user)
     db.session.commit()
     print(f"Utilisateur {email} ajouté avec succès")
+    session['message'] = f"L'utilisateur {email} a été ajouté avec succès!"
     return redirect(url_for('admin.dashboard'))
 
 # Route : Afficher tous les utilisateurs
